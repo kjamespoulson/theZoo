@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title> FeedingEvents </title>
+</head>
+
+<body>
+    <h1> FeedingEvents </h1>
+    <nav>
+        <a href="Animals.html"> Animals </a>
+        &nbsp;
+        <a href="Keepers.html"> Keepers </a> 
+        &nbsp;
+        <a href="Foods.html"> Foods </a>
+        &nbsp;
+        <a href="FeedingEvents.html"> FeedingEvents </a>
+        &nbsp;
+    </nav>
+    &nbsp;
+    <form action="FeedingEvents.html" method="get">
+        <label> Search for FeedingEvent</label>
+        <input type="text">
+        <input type="submit" value="Search">
+    </form>
+    &nbsp;
+    <table>
+        <tr>
+            <th> feedingEventID </th>
+            <th> date </th>
+            <th> time </th>            
+        </tr>
+        <tr>
+            <td> 1 </td>
+            <td> 20230717 </td>
+            <th> 6:0:0 </th>            
+        </tr>
+        <tr>
+            <td> 2 </td>
+            <td> 20230717 </td>
+            <th> 6:0:34 </th>
+        </tr>
+        <tr>
+            <td> 3 </td>
+            <td> 20230717 </td>
+            <th> 12:59:14 </th>        
+        </tr>
+        <tr>
+            <td> 4 </td>
+            <td> 20230717 </td>
+            <th> 16:4:49 </th>
+        </tr>
+        <tr>
+            <td> 5 </td>
+            <td> 20230717 </td>
+            <th> 20:5:26 </th>
+        </tr>        
+    </table>
+    <h2> Add a FeedingEvent </h2>
+    <form action="FeedingEvents.html" method="post">
+        <label for="date"> Date </label>
+        <input id="date" type="text">
+        <label for="time"> Time </label>
+        <input id="time" type="text">
+        <input type="submit" value="Enter">
+    </form>
+    <h2> Update a FeedingEvent </h2>
+    <form action="FeedingEvents.html" method="put">
+        <label for="date"> Date </label>
+        <input id="date" type="text">
+        <label for="time"> Time </label>
+        <input id="time" type="text">
+        <input type="submit" value="Enter">
+    </form>
+    <h2> Delete a FeedingEvent </h2>
+    <form action="FeedingEvents.html" method="delete">
+        <label for="deleteFeedingEvent"> Remove FeedingEvent </label> 
+            <select id="deleteFeedingEvent" name="deleteFeedingEvent">
+            <option value=""> Select an Event </option>            
+            <option value="1"> 1 </option>
+            <option value="2"> 2 </option>
+            <option value="3"> 3 </option>
+            <option value="4"> 4 </option>   
+    </select>
+    <input type="submit" value="Enter">                     
+    </form>    
+</body>

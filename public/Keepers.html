@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title> Keepers </title>
+</head>
+
+<body>
+    <h1> Meet Our Keepers! </h1>
+    <nav>
+        <a href="Index.html"> Home </a>
+        &nbsp;        
+        <a href="Animals.html"> Animals </a>
+        &nbsp;
+        <a href="Keepers.html"> Keepers </a> 
+        &nbsp;
+        <a href="Foods.html"> Foods </a>
+        &nbsp;
+        <a href="FeedingEvents.html"> FeedingEvents </a>
+        &nbsp;
+    </nav>
+    &nbsp;
+    <form action="Keepers.html" method="get">
+        <label> Search for Keepers </label>
+        <input type="text">
+        <input type="submit" value="Search">
+    </form>
+    &nbsp;
+    <table>
+        <tr>
+            <th> keeperID </th>
+            <th> keeperName </th>
+        </tr>
+        <tr>
+            <td> 1 </td>
+            <td> Steve Irwin </td>
+        </tr>
+        <tr>
+            <td> 2 </td>
+            <td> Casey Anderson </td>
+        </tr>
+        <tr>
+            <td> 3 </td>
+            <td> Jimi Hendrix </td>
+        </tr>
+        <tr>
+            <td> 4 </td>
+            <td> Mike Tyson </td>
+        </tr>
+    </table>
+    <h2> Add a Keeper </h2>
+    <form action="Keepers.html" method="post">
+        <label for="keeperName"> keeperName </label>
+        <input id="keeperName" type="text">
+        <input type="submit" value="Enter">
+    </form>
+    <h2> Update a Keeper </h2>
+    <form action="Keepers.html" method="put">
+        <label for="keeperName"> keeperName </label>
+        <input id="keeperName" type="text">
+        <input type="submit" value="Enter">
+    </form>
+    <h2> Delete a Keeper </h2>
+    <form action="Keepers.html" method="delete">
+        <label for="deleteKeeper"> Remove Keeper </label> 
+            <select id="deleteKeeper" name="deleteKeeper">
+            <option value=""> Select a Keeper </option>            
+            <option value="1"> Steve Irwin </option>
+            <option value="2"> Casey Anderson </option>
+            <option value="3"> Jimi Hendrix </option>
+            <option value="4"> Mike Tyson </option>   
+    </select>
+    <input type="submit" value="Enter">                     
+    </form>    
+</body>
