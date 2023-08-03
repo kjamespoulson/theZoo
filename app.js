@@ -14,7 +14,7 @@ var app     = express();            // We need to instantiate an express object 
 //********************************************************************/
 // Database - mySQL
 var db = require('./database/db-connector')
-PORT        = 9124;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 15769;                 // Set a port number at the top so it's easy to change in the future
 
 
 //********************************************************************/
@@ -38,6 +38,13 @@ app.get('/', function(req, res)                 // This is the basic syntax for 
 //********************************************************************/
 //  Animals Page
 
+//  Create Operations
+//      Create a new animal
+app.post('/Animals', function(req, res){
+    
+});
+
+//  Read Operations
 //      Render the page with all of the Animals
 app.get('/Animals', function(req, res)
     {
@@ -47,6 +54,12 @@ app.get('/Animals', function(req, res)
             res.render('Animals', {data: rows});
         });
     });
+
+
+// Update Operations
+
+// Delete Operations
+
 
 
 //********************************************************************/

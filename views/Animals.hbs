@@ -3,44 +3,35 @@
 {{> page/nav}}
 
 &nbsp;
-<form action="Animals.html" method="get">
+<form action="getAnimal" method="get">
     <label> Search for Animal</label>
     <input type="text">
     <input type="submit" value="Search">
 </form>
 &nbsp;
 <table>
+    {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
     <tr>
-        <th> animalID </th>
-        <th> species </th>
-        <th> animalName </th>
-        <th> diet </th>
+        {{#each data.[0]}}
+        <th>
+            {{@key}}
+        </th>
+        {{/each}}
     </tr>
+    
+    {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+    {{#each data}}
     <tr>
-        <td> 1 </td>
-        <td> tiger </td>
-        <td> Tony </td>
-        <td> meat </td>
+        <td>{{this.animalID}}</td>
+        <td>{{this.species}}</td>
+        <td>{{this.animalName}}</td>
+        <td>{{this.diet}}</td>
     </tr>
-    <tr>
-        <td> 2 </td>
-        <td> hippo </td>
-        <td> Gutsav </td>
-        <td> fruits, vegetables </td>
-    </tr>
-    <tr>
-        <td> 3 </td>
-        <td> penguin </td>
-        <td> Perry </td>
-        <td> fish </td>
-    </tr>
-    <tr>
-        <td> 4 </td>
-        <td> polar bear </td>
-        <td> Louis </td>
-        <td> meat </td>
-    </tr>
+    {{/each}}
+
 </table>
+
 <h2> Add an Animal </h2>
 <form action="Animals.html" method="post">
     <label for="species"> Species </label>
