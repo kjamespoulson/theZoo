@@ -3,13 +3,14 @@
 {{> page/nav}}
 
 &nbsp;
-<form action="getAnimal" method="get">
+<form action="get-animal" method="get">
     <label> Search for Animal</label>
     <input type="text">
     <input type="submit" value="Search">
 </form>
 &nbsp;
-<table>
+
+<table id="animals-table">
     {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
     <tr>
@@ -29,19 +30,22 @@
         <td>{{this.diet}}</td>
     </tr>
     {{/each}}
-
 </table>
 
 <h2> Add an Animal </h2>
-<form action="Animals.html" method="post">
+<form id="addAnimalForm" action="/addAnimalForm" method="POST">
     <label for="species"> Species </label>
-    <input id="species" type="text">
+    <input id="addSpecies" name="species" type="text" required>
+    
     <label for="animalName"> Animal's Name </label>
-    <input id="animalName" type="text">
+    <input id="addAnimalName" name="animalName" type="text">
+    
     <label for="diet"> Diet </label>
-    <input id="diet" type="text">
+    <input id="addDiet" name="diet" type="text" required>
+    
     <input type="submit" value="Enter">
 </form>
+
 <h2> Update an Animal </h2>
 <form action="Animals.html" method="put">
     <label for="species"> Species </label>
@@ -52,6 +56,7 @@
     <input id="diet" type="text">
     <input type="submit" value="Enter">
 </form>
+
 <h2> Delete an Animal </h2>
 <form action="Animals.html" method="delete">
     <label for="deleteAnimal"> Remove Animal </label> 
