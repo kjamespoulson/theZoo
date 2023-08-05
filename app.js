@@ -9,12 +9,15 @@
 // Webserver - Express
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+app.use(express.static('public'))
 
 
 //********************************************************************/
 // Database - mySQL
 var db = require('./database/db-connector')
-PORT        = 9124;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 15769;                 // Set a port number at the top so it's easy to change in the future
 
 
 //********************************************************************/
@@ -38,6 +41,43 @@ app.get('/', function(req, res)                 // This is the basic syntax for 
 //********************************************************************/
 //  Animals Page
 
+//  Create Operations
+//      Create a new animal
+app.post('/addAnimalForm', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL values
+    animalName = data['animalName']
+    if (animalName === undefined) {
+        animalName = NULL
+    }
+
+    console.log()
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Animals (species, animalName, diet) VALUES ('${data['species']}', '${animalName}', '${data['diet']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+    
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/Animals');
+        }
+    })
+});
+
+//  Read Operations
 //      Render the page with all of the Animals
 app.get('/Animals', function(req, res)
     {
@@ -47,6 +87,12 @@ app.get('/Animals', function(req, res)
             res.render('Animals', {data: rows});
         });
     });
+
+
+// Update Operations
+
+// Delete Operations
+
 
 
 //********************************************************************/
