@@ -174,9 +174,8 @@ app.get('/Foods', function(req, res)
     {
         retrieveFoods = 'SELECT * from Foods;';
         db.pool.query(retrieveFoods, function(error, rows, fields){    // Execute the query
-
             res.render('Foods', {data: rows});
-        });
+        })
     });
 
 
