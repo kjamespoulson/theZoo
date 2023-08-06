@@ -17,7 +17,7 @@ app.use(express.static('public'))
 //********************************************************************/
 // Database - mySQL
 var db = require('./database/db-connector')
-PORT        = 15769;                 // Set a port number at the top so it's easy to change in the future
+PORT = 3124;                 // Set a port number at the top so it's easy to change in the future
 
 
 //********************************************************************/
@@ -103,11 +103,26 @@ app.get('/Foods', function(req, res)
     {
         retrieveFoods = 'SELECT * from Foods;';
         db.pool.query(retrieveFoods, function(error, rows, fields){    // Execute the query
-
             res.render('Foods', {data: rows});
-        });
+        })
     });
 
+app.post('/addFoodForm', function(req, res) {
+    
+    let data = req.body;
+
+    addFoodQuery = `INSERT INTO Foods (foodName, foodGroup) VALUES ('${data['input-foodName']}', '${data['input-foodGroup']}')`;
+    db.pool.query(addFoodQuery, function(error, rows, fields) {
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else {
+            res.redirect('/Foods');
+        }
+    })
+})
 
 //********************************************************************/
 //  Keepers Page

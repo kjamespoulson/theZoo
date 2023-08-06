@@ -2,48 +2,38 @@
 
 {{> page/nav}}
 
-&nbsp;
-<form action="Foods.html" method="get">
-    <label> Search for Foods</label>
-    <input type="text">
-    <input type="submit" value="Search">
-</form>
-&nbsp;
 <table>
-    <tr>
-        <th> foodID </th>
-        <th> foodName </th>
-        <th> foodGroup </th>            
-    </tr>
-    <tr>
-        <td> 1 </td>
-        <td> chicken </td>
-        <th> meat </th>            
-    </tr>
-    <tr>
-        <td> 2 </td>
-        <td> oats </td>
-        <th> grain </th>
-    </tr>
-    <tr>
-        <td> 3 </td>
-        <td> salmon </td>
-        <th> fish </th>        
-    </tr>
-    <tr>
-        <td> 4 </td>
-        <td> banana </td>
-        <th> fruit </th>
-    </tr>
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{this.foodID}}</td>
+            <td>{{this.foodName}}</td>
+            <td>{{this.foodGroup}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
 </table>
+
 <h2> Add a Food </h2>
-<form action="Foods.html" method="post">
-    <label for="foodName"> foodName </label>
-    <input id="foodName" type="text">
-    <label for="foodGroup"> foodGroup </label>
-    <input id="foodGroup" type="text">
-    <input type="submit" value="Enter">
+<form id="addFoodForm" action="/addFoodForm" method="POST"> 
+    <label for="input-foodName"> Food Name: </label>
+    <input type="text" name="input-foodName" id="input-foodName">
+
+    <label for="input-foodGroup"> Food Group: </label>
+    <input type="text" name="input-foodGroup" id="input-foodGroup">
+
+    <input type="submit" value="Add">
 </form>
+
 <h2> Update a Food </h2>
 <form action="Foods.html" method="put">
     <label for="foodName"> foodName </label>
