@@ -39,6 +39,7 @@ app.get('/', function(req, res)                 // This is the basic syntax for 
     });                                         // requesting the web site.
 
 
+
 //********************************************************************/
 //  Animals Page
 
