@@ -107,6 +107,22 @@ app.get('/Foods', function(req, res)
         })
     });
 
+app.post('/addFoodForm', function(req, res) {
+    
+    let data = req.body;
+
+    addFoodQuery = `INSERT INTO Foods (foodName, foodGroup) VALUES ('${data['input-foodName']}', '${data['input-foodGroup']}')`;
+    db.pool.query(addFoodQuery, function(error, rows, fields) {
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else {
+            res.redirect('/Foods');
+        }
+    })
+})
 
 //********************************************************************/
 //  Keepers Page
