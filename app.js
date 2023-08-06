@@ -17,7 +17,7 @@ app.use(express.static('public'))
 //********************************************************************/
 // Database - mySQL
 var db = require('./database/db-connector')
-PORT        = 15769;                 // Set a port number at the top so it's easy to change in the future
+PORT = 3124;                 // Set a port number at the top so it's easy to change in the future
 
 
 //********************************************************************/
