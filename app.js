@@ -122,7 +122,26 @@ app.post('/addFoodForm', function(req, res) {
             res.redirect('/Foods');
         }
     })
-})
+});
+
+app.delete('/delete-food', function(req, res, next){
+    let data = req.body;
+    let foodID = parseInt(data.id);
+    let deleteAFood = `DELETE FROM Foods WHERE foodID = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteAFood, [foodID], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+              else {
+                res.sendStatus(204);
+            }
+})});
 
 //********************************************************************/
 //  Keepers Page
