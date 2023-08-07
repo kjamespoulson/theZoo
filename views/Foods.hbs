@@ -2,7 +2,7 @@
 
 {{> page/nav}}
 
-<table>
+<table id="food-table">
     <thead>
         <tr>
             {{#each data.[0]}}
@@ -10,18 +10,21 @@
                 {{@key}}
             </th>
             {{/each}}
+            <th> delete </th>
         </tr>
     </thead>
     <tbody>
         {{#each data}}
-        <tr>
+        <tr data-value={{this.id}}>
             <td>{{this.foodID}}</td>
             <td>{{this.foodName}}</td>
             <td>{{this.foodGroup}}</td>
+            <td><button onclick="deleteFood({{this.foodID}})"> Delete </button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="./js/delete_food.js"></script>
 
 <h2> Add a Food </h2>
 <form id="addFoodForm" action="/addFoodForm" method="POST"> 
@@ -41,16 +44,4 @@
     <label for="foodGroup"> foodGroup </label>
     <input id="foodGroup" type="text">
     <input type="submit" value="Enter">
-</form>
-<h2> Delete a Food </h2>
-<form action="Foods.html" method="delete">
-    <label for="deleteFood"> Remove Food </label> 
-        <select id="deleteFood" name="deleteFood">
-        <option value=""> Select a Food </option>            
-        <option value="1"> chicken </option>
-        <option value="2"> oats </option>
-        <option value="3"> salmon </option>
-        <option value="4"> banana </option>   
-</select>
-<input type="submit" value="Enter">                     
 </form>
