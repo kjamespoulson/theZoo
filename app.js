@@ -143,6 +143,28 @@ app.delete('/delete-food', function(req, res, next){
             }
 })});
 
+app.put('/put-food', function(req,res,next){
+    let data = req.body;
+  
+    let oldFood = parseInt(data.foodID);
+    let newFood = parseInt(data.foodName);
+    let newGroup = parseInt(data.foodGroup);
+  
+    let queryUpdateFood = `UPDATE Foods SET foodName = ? AND foodGroup = ? WHERE oldFood = ?`;
+
+          // Run the 1st query
+          db.pool.query(queryUpdateFood, [newFood, newGroup, oldFood], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+              else {
+                res.sendStatus(204);
+              }
+})});
+
 //********************************************************************/
 //  Keepers Page
 
