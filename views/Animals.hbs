@@ -24,14 +24,16 @@
     
     {{!-- For each row, print the animalID, species, animalName, and diet --}}
     {{#each data}}
-    <tr>
+    <tr data-value={{this.animalID}}>
         <td>{{this.animalID}}</td>
         <td>{{this.species}}</td>
         <td>{{this.animalName}}</td>
         <td>{{this.diet}}</td>
+        <td><button onclick="deleteAnimal({{ this.animalID }})">Delete</button></td>
     </tr>
     {{/each}}
 </table>
+<script src="/js/delete_animal.js"></script>
 
 <h2> Add an Animal </h2>
 <form id="addAnimalForm" action="/addAnimalForm" method="POST">
@@ -49,8 +51,8 @@
 
 <h2> Update an Animal </h2>
 <form id="updateAnimalForm">
-    <label for="animalID"> Update Animal </label> 
-    <select id="animalID" name="animalID">
+    <label for="updateAnimalID"> Update Animal </label> 
+    <select id="updateAnimalID" name="updateAnimalID">
         <option value=""> Select an Animal </option>            
         {{!-- Add each animalID in the dropdown menu --}}
         {{#each data}}
@@ -69,7 +71,9 @@
     
     <input type="submit" value="Enter">
 </form>
+<script src="/js/updateAnimal.js"></script>
 
+{{!--
 <h2> Delete an Animal </h2>
 <form id="delete-animal-ajax">
     <label for="deleteAnimal"> Delete Animal </label> 
@@ -80,8 +84,7 @@
             <option value="{{this.animalID}}"> {{this.animalID}} {{this.animalName}}</option>
         {{/each}}
     </select>
-    <button onclick="deleteAnimal({{this.id}})">Delete</button>                     
+    <button onclick="deleteAnimal({{this.animalID}})">Delete</button>                  
 </form>
-
-<script src="./js/updateAnimal.js"></script>
-<script src="./js/delete_animal.js"></script>
+<script src="/js/delete_animal.js"></script> 
+--}}

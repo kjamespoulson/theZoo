@@ -131,15 +131,14 @@ app.put('/updateAnimalForm-ajax', function(req,res,next){
 
 
 // Delete Operations
-app.delete('/delete-animal-ajax/', function(req,res,next){
+app.delete('/delete-animal', function(req,res,next){
     let data = req.body;
     let animalID = parseInt(data.animalID);
     let deleteFeedingEvent = `DELETE FROM FeedingEvents WHERE animalID = ?`;
     let deleteAnimal= `DELETE FROM Animals WHERE animalID = ?`;
-    res.sendStatus(200)
   
           // Run the 1st query
-          db.pool.query(deleteFeedingEvent, [animalID], function(error, rows, fields){
+          db.pool.query(deleteAnimal, [animalID], function(error, rows, fields){
               if (error) {
   
                 // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -149,7 +148,8 @@ app.delete('/delete-animal-ajax/', function(req,res,next){
   
               else
               {
-                  // Run the second query
+                /*  
+                // Run the second query
                   db.pool.query(deleteAnimal, [animalID], function(error, rows, fields) {
   
                       if (error) {
@@ -160,6 +160,8 @@ app.delete('/delete-animal-ajax/', function(req,res,next){
                         res.sendStatus(204);
                       }
                   })
+                  */
+                  res.sendStatus(204);
               }
   })});
 
