@@ -10,14 +10,14 @@ updateFoodForm.addEventListener("submit", function (e) {
 
     // Get form fields we need to get data from
     let foodID = document.getElementById("updateFoodID").value;
-    let foodName = document.getElementById("udpatedFoodName").value;
-    let foodGroup = document.getElementById("updatedFoodGroup").value;
+    let foodName = document.getElementById("updateFoodName").value;
+    let foodGroup = document.getElementById("updateFoodGroup").value;
 
     if (foodName == ''){
-        foodName = getPreviouseValue(1, foodID);
+        foodName = getPreviousValue(1, foodID);
     };
     if (foodGroup == ''){
-        foodGroup = getPreviouseValue(2, foodID);
+        foodGroup = getPreviousValue(2, foodID);
     };
 
     // Put our data we want to send in a javascript object
