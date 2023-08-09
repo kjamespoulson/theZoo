@@ -214,27 +214,32 @@ app.delete('/delete-food', function(req, res, next){
             }
 })});
 
-app.put('/put-food', function(req,res,next){
+app.put('/update-food', function(req,res,next){
     let data = req.body;
-  
-    let oldFood = parseInt(data.foodID);
-    let newFood = parseInt(data.foodName);
-    let newGroup = parseInt(data.foodGroup);
-  
-    let queryUpdateFood = `UPDATE Foods SET foodName = ? AND foodGroup = ? WHERE oldFood = ?`;
+    
+    let foodID = data.foodID;
+    let foodName = data.foodName;
+    let foodGroup = data.foodGroup;
 
-          // Run the 1st query
-          db.pool.query(queryUpdateFood, [newFood, newGroup, oldFood], function(error, rows, fields){
-              if (error) {
-  
-              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-              console.log(error);
-              res.sendStatus(400);
-              }
-              else {
-                res.sendStatus(204);
-              }
-})});
+    let updateFoodQuery = `UPDATE Foods SET foodName = ?, foodGroup = ? WHERE foodID = ?`;
+    let selectFoods = `SELECT * FROM Foods WHERE foodID = ?`;
+
+    db.pool.query(updateFoodQuery, [foodName, foodGroup, foodID], function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            db.pool.query(selectFoods, [foodID], function(error,rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
 
 //********************************************************************/
 //  Keepers Page
