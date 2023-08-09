@@ -11,7 +11,8 @@ var express = require('express');   // We are using the express library for the 
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use(express.static('public'))
+//app.use(express.static('public'))
+app.use(express.static(__dirname + '/public')); // this is needed to allow for the form to use the ccs style sheet
 
 
 //********************************************************************/
@@ -38,6 +39,7 @@ app.get('/', function(req, res)                 // This is the basic syntax for 
     });                                         // requesting the web site.
 
 
+
 //********************************************************************/
 //  Animals Page
 
@@ -53,8 +55,6 @@ app.post('/addAnimalForm', function(req, res)
     if (animalName === undefined) {
         animalName = NULL
     }
-
-    console.log()
 
     // Create the query and run it on the database
     query1 = `INSERT INTO Animals (species, animalName, diet) VALUES ('${data['species']}', '${animalName}', '${data['diet']}')`;
@@ -90,9 +90,79 @@ app.get('/Animals', function(req, res)
 
 
 // Update Operations
+app.put('/update-animal', function(req,res,next){
+    let data = req.body;
+
+    let animalID = data.animalID;
+    let species = data.species;
+    let animalName = data.animalName;
+    let diet = data.diet;
+    
+    let queryUpdateAnimal = `UPDATE Animals SET species = ?, animalName = ?, diet = ? WHERE Animals.animalID = ?`;
+    let selectAnimal = `SELECT * FROM Animals WHERE animalID = ?`
+    
+            // Run the 1st query
+            db.pool.query(queryUpdateAnimal, [species, animalName, diet, animalID], function(error, rows, fields){
+                if (error) {
+    
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error);
+                res.sendStatus(400);
+                }
+    
+                // If there was no error, we run our second query and return that data so we can use it to update the people's
+                // table on the front-end
+                else
+                {
+                    // Run the second query
+                    db.pool.query(selectAnimal, [animalID], function(error, rows, fields) {
+    
+                        if (error) {
+                            console.log(error);
+                            res.sendStatus(400);
+                        } else {
+                            res.send(rows);
+                        }
+                    })
+                }
+    })
+});
+
 
 // Delete Operations
-
+app.delete('/delete-animal', function(req,res,next){
+    let data = req.body;
+    let animalID = parseInt(data.animalID);
+    let deleteFeedingEvent = `DELETE FROM FeedingEvents WHERE animalID = ?`;
+    let deleteAnimal= `DELETE FROM Animals WHERE animalID = ?`;
+  
+          // Run the 1st query
+          db.pool.query(deleteAnimal, [animalID], function(error, rows, fields){
+              if (error) {
+  
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error);
+                res.sendStatus(400);
+              }
+  
+              else
+              {
+                /*  
+                // Run the second query
+                  db.pool.query(deleteAnimal, [animalID], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                        console.log(fields)  
+                        res.sendStatus(204);
+                      }
+                  })
+                  */
+                  res.sendStatus(204);
+              }
+  })});
 
 
 //********************************************************************/

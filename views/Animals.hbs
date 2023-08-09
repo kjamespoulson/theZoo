@@ -1,3 +1,4 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <h1> View Our Animals! </h1>
 
 {{> page/nav}}
@@ -23,14 +24,16 @@
     
     {{!-- For each row, print the animalID, species, animalName, and diet --}}
     {{#each data}}
-    <tr>
+    <tr data-value={{this.animalID}}>
         <td>{{this.animalID}}</td>
         <td>{{this.species}}</td>
         <td>{{this.animalName}}</td>
         <td>{{this.diet}}</td>
+        <td><button onclick="deleteAnimal({{ this.animalID }})">Delete</button></td>
     </tr>
     {{/each}}
 </table>
+
 
 <h2> Add an Animal </h2>
 <form id="addAnimalForm" action="/addAnimalForm" method="POST">
@@ -47,25 +50,39 @@
 </form>
 
 <h2> Update an Animal </h2>
-<form action="Animals.html" method="put">
-    <label for="species"> Species </label>
-    <input id="species" type="text">
-    <label for="animalName"> Animal's Name </label>
-    <input id="animalName" type="text">
-    <label for="diet"> Diet </label>
-    <input id="diet" type="text">
+<form id="updateAnimalForm">
+    <label for="updateAnimalID"> Update Animal </label> 
+    <select id="updateAnimalID" name="updateAnimalID">
+        <option value=""> Select an Animal </option>            
+        {{!-- Add each animalID in the dropdown menu --}}
+        {{#each data}}
+            <option value="{{this.animalID}}"> {{this.animalID}} </option>
+        {{/each}}
+    </select>
+
+    <label for="updateSpecies"> Species </label>
+    <input id="updateSpecies" type="text">
+    
+    <label for="updateAnimalName"> Animal's Name </label>
+    <input id="updateAnimalName" type="text">
+    
+    <label for="updateDiet"> Diet </label>
+    <input id="updateDiet" type="text">
+    
     <input type="submit" value="Enter">
 </form>
+<script src="/js/updateAnimal.js"></script>
 
 <h2> Delete an Animal </h2>
-<form action="Animals.html" method="delete">
-    <label for="deleteAnimal"> Remove Animal </label> 
-        <select id="deleteAnimal" name="deleteAnimal">
+<form id="deleteAnimalForm">
+    <label for="deleteAnimal"> Delete Animal </label> 
+    <select id="deleteAnimal" name="deleteAnimal">
         <option value=""> Select an Animal </option>            
-        <option value="1"> Tony </option>
-        <option value="2"> Gustav </option>
-        <option value="3"> Perry </option>
-        <option value="4"> Louis </option>   
-</select>
-<input type="submit" value="Enter">                     
+        {{!-- Add each animalID in the dropdown menu --}}
+        {{#each data}}
+            <option value="{{this.animalID}}"> {{this.animalID}} {{this.animalName}}</option>
+        {{/each}}
+    </select>
+    <input type="submit" value="Delete">                 
 </form>
+<script src="/js/delete_animal.js"></script>
