@@ -213,6 +213,33 @@ app.delete('/delete-food', function(req, res, next){
             }
 })});
 
+app.put('/update-food', function(req,res,next){
+    let data = req.body;
+    
+    let foodID = data.foodID;
+    let foodName = data.foodName;
+    let foodGroup = data.foodGroup;
+
+    let updateFoodQuery = `UPDATE Foods SET foodName = ?, foodGroup = ? WHERE foodID = ?`;
+    let selectFoods = `SELECT * FROM Foods WHERE foodID = ?`;
+
+    db.pool.query(updateFoodQuery, [foodName, foodGroup, foodID], function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            db.pool.query(selectFoods, [foodID], function(error,rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
 //********************************************************************/
 //  Keepers Page
 
