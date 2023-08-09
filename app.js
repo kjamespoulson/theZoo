@@ -216,6 +216,24 @@ app.delete('/delete-food', function(req, res, next){
 //********************************************************************/
 //  Keepers Page
 
+// Create Operations
+app.post('/addKeeperForm', function(req, res) {
+    
+    let data = req.body;
+
+    addKeeperQuery = `INSERT INTO Keepers (keeperName) VALUES ('${data['keeperName']}')`;
+    db.pool.query(addKeeperQuery, function(error, rows, fields) {
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else {
+            res.redirect('/Keepers');
+        }
+    })
+});
+
 //      Render the page with all of the animals
 app.get('/Keepers', function(req, res)
 {
@@ -225,6 +243,39 @@ app.get('/Keepers', function(req, res)
         res.render('Keepers', {data: rows});
     });
 });
+
+// Delete Operations
+app.delete('/delete-keeper', function(req,res,next){
+    let data = req.body;
+    let keeperID = parseInt(data.keeperID);
+    let deleteFeedingEvent = `DELETE FROM FeedingEvents WHERE keeperID = ?`;
+    let deleteKeeper= `DELETE FROM Keepers WHERE keeperID = ?`;
+  
+          // Run the 1st query
+          db.pool.query(deleteFeedingEvent, [keeperID], function(error, rows, fields){
+              if (error) {
+  
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error);
+                res.sendStatus(400);
+              }
+  
+              else
+              {
+                // Run the second query
+                  db.pool.query(deleteKeeper, [keeperID], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                        console.log(fields)  
+                        res.sendStatus(204);
+                      }
+                  })
+                  res.sendStatus(204);
+              }
+  })});
 
 
 //********************************************************************/
