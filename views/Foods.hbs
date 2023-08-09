@@ -2,8 +2,6 @@
 
 {{> page/nav}}
 
-<script src="./js/delete_food.js"></script>
-
 <table id="food-table">
     <thead>
         <tr>
@@ -17,7 +15,7 @@
     </thead>
     <tbody>
         {{#each data}}
-        <tr data-value={{this.id}}>
+        <tr data-value={{this.foodID}}>
             <td>{{this.foodID}}</td>
             <td>{{this.foodName}}</td>
             <td>{{this.foodGroup}}</td>
@@ -26,6 +24,8 @@
         {{/each}}
     </tbody>
 </table>
+
+<script src="./js/delete_food.js"></script>
 
 <h2> Add a Food </h2>
 <form id="addFoodForm" action="/addFoodForm" method="POST"> 
