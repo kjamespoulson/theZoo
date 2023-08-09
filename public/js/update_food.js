@@ -1,6 +1,6 @@
 
 // Get the objects we need to modify
-let updateFoodForm = document.getElementById('update-foodForm');
+let updateFoodForm = document.getElementById('updateFoodForm');
 
 // Modify the objects we need
 updateFoodForm.addEventListener("submit", function (e) {
@@ -9,14 +9,9 @@ updateFoodForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputFoodName = document.getElementById("mySelect");
-    let updatedFoodName = document.getElementById("udpated-foodName");
-    let updatedFoodGroup = document.getElementById("updated-foodGroup");
-
-    // Get the values from the form fields
-    let oldNameValue = inputFoodID.value;
-    let newNameValue = updatedFoodGroup.value;
-    let foodGroupValue = updatedFoodGroup.value;
+    let foodID = document.getElementById("updateFoodID").value;
+    let foodName = document.getElementById("udpatedFoodName").value;
+    let foodGroup = document.getElementById("updatedFoodGroup").value;
 
     // Put our data we want to send in a javascript object
     let data = {

@@ -3,7 +3,7 @@
 {{> page/nav}}
 
 <script src="./js/delete_food.js"></script>
-<script src="./js/update_person.js"></script>
+<script src="./js/update_food.js"></script>
 
 <table id="food-table">
     <thead>
@@ -40,21 +40,21 @@
 </form>
 
 <h2> Update a Food </h2>
-<form id="update-foodForm">
+<form id="updateFoodForm">
 
-    <label for="input-foodName"> Food: </label>
-    <select name="input-foodName" id="mySelect">
-        <option value="test">Select a Food</option>
+    <label for="updatefoodID"> Food: </label>
+    <select name="updatefoodID" id="updatefoodID">
+        <option value="--"> Select a Food </option>
         {{#each data}}
-        <option value="{{this.id}}">{{this.foodName}}</option>
+        <option value="{{this.foodID}}">{{this.foodID}}</option>
         {{/each}}
     </select>
 
-    <label for="updated-foodName"> Food Name: </label>
-    <input type="text" name="updated-foodName" id="updated-foodName">
+    <label for="updateFoodName"> Food Name: </label>
+    <input type="text" id="updateFoodName">
 
-    <label for="updated-foodGroup"> Food Group: </label>
-    <input type="text" name="updated-foodGroup" id="updated-foodGroup">
+    <label for="updateFoodGroup"> Food Group: </label>
+    <input type="text" id="updateFoodGroup">
     
     <input type="submit" value="Update">
 
