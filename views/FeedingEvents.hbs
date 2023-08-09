@@ -1,119 +1,65 @@
 <h1> FeedingEvents </h1>
 
 {{> page/nav}}
-
 &nbsp;
-<form action="FeedingEvents.html" method="get">
-    <label> Search for FeedingEvent</label>
-    <input type="text">
-    <input type="submit" value="Search">
-</form>
-&nbsp;
-<table>
+<table id="feedingEvents-table">
+    {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
     <tr>
-        <th> feedingEventID </th>
-        <th> date </th>
-        <th> time </th>            
+        {{#each data.feedingEvents.[0]}}
+        <th>
+            {{@key}}
+        </th>
+        {{/each}}
+        <th>Delete</th>
     </tr>
-    <tr>
-        <td> 1 </td>
-        <td> 20230717 </td>
-        <th> 6:0:0 </th>            
+    
+    {{!-- For each row, print the attributes of the FeedingEvent --}}
+    {{#each data.feedingEvents}}
+    <tr data-value={{this.feedingEventID}}>
+        <td>{{this.feedingEventID}}</td>
+        <td>{{this.date}}</td>
+        <td>{{this.time}}</td>
+        <td>{{this.foodID}}</td>
+        <td>{{this.animalID}}</td>
+        <td>{{this.keeperID}}</td>
+        <td><button onclick="deleteFeedingEvent({{ this.feedingEventID }})">Delete</button></td>
     </tr>
-    <tr>
-        <td> 2 </td>
-        <td> 20230717 </td>
-        <th> 6:0:34 </th>
-    </tr>
-    <tr>
-        <td> 3 </td>
-        <td> 20230717 </td>
-        <th> 12:59:14 </th>        
-    </tr>
-    <tr>
-        <td> 4 </td>
-        <td> 20230717 </td>
-        <th> 16:4:49 </th>
-    </tr>
-    <tr>
-        <td> 5 </td>
-        <td> 20230717 </td>
-        <th> 20:5:26 </th>
-    </tr>        
+    {{/each}}
 </table>
+
 <h2> Add a FeedingEvent </h2>
-    <form action="FeedingEvents.html" method="post">
+    <form id="addFeedingEventForm" action="/addFeedingEventForm" method="post">
         <label for="animalID"> Animal </label>
         <select name="animalID">
-            <option> -- </option>
-            <option value="1"> Tony </option>
-            <option value="2"> Gustav </option>
-            <option value="3"> Perry </option>
-            <option value="4"> Louis </option>
+            <option value=""> Select an Animal </option>            
+            {{!-- Add each animalID in the dropdown menu --}}
+            {{#each data.animals}}
+                <option value="{{this.animalID}}"> {{this.animalID}} - {{this.animalName}} </option>
+            {{/each}}
         </select>
+
         <label for="keeperID"> Keeper </label>
         <select name="keeperID">
-            <option> -- </option>
-            <option value="1"> Steve Irwin </option>
-            <option value="2"> Casey Anderson </option>
-            <option value="3"> Jimi Hendrix </option>
-            <option value="4"> Mike Tyson </option>
+            <option value=""> Select a Keeper </option>            
+            {{!-- Add each keeperID in the dropdown menu --}}
+            {{#each data.keepers}}
+                <option value="{{this.keeperID}}"> {{this.keeperID}} - {{this.keeperName}} </option>
+            {{/each}}
         </select>
+
         <label for="foodID"> Food </label>
         <select name="foodID">
-            <option> -- </option>
-            <option value="1"> chicken </option>
-            <option value="2"> oats </option>
-            <option value="3"> salmon </option>
-            <option value="4"> banana </option>
+            <option value=""> Select a Food </option>            
+            {{!-- Add each foodID in the dropdown menu --}}
+            {{#each data.foods}}
+                <option value="{{this.foodID}}"> {{this.foodID}} - {{this.foodName}} </option>
+            {{/each}}
         </select>
+
         <label for="date"> Date </label>
-        <input id="date" type="text">
+        <input id="date" type="date" name="date">
         <label for="time"> Time </label>
-        <input id="time" type="text">
+        <input id="time" type="time" name="time">
         <input type="submit" value="Enter">
     </form>
-<h2> Update a FeedingEvent </h2>
-    <form action="FeedingEvents.html" method="put">
-        <label for="animalID"> Animal </label>
-        <select name="animalID">
-            <option> -- </option>
-            <option value="1"> Tony </option>
-            <option value="2"> Gustav </option>
-            <option value="3"> Perry </option>
-            <option value="4"> Louis </option>
-        </select>
-        <label for="keeperID"> Keeper </label>
-        <select name="keeperID">
-            <option> -- </option>
-            <option value="1"> Steve Irwin </option>
-            <option value="2"> Casey Anderson </option>
-            <option value="3"> Jimi Hendrix </option>
-            <option value="4"> Mike Tyson </option>
-        </select>
-        <label for="foodID"> Food </label>
-        <select name="foodID">
-            <option> -- </option>
-            <option value="1"> chicken </option>
-            <option value="2"> oats </option>
-            <option value="3"> salmon </option>
-            <option value="4"> banana </option>
-        </select>
-        <label for="date"> Date </label>
-        <input id="date" type="text">
-        <label for="time"> Time </label>
-        <input id="time" type="text">
-        <input type="submit" value="Enter">
-    </form>
-<h2> Delete a FeedingEvent </h2>
-<form action="FeedingEvents.html" method="delete">
-    <label for="deleteFeedingEvent"> Remove FeedingEvent </label> 
-        <select id="deleteFeedingEvent" name="deleteFeedingEvent">
-        <option value=""> Select an Event </option>            
-        <option value="1"> 1 </option>
-        <option value="2"> 2 </option>
-        <option value="3"> 3 </option>
-        <option value="4"> 4 </option>   
-</select>
-<input type="submit" value="Enter">                     
-</form>

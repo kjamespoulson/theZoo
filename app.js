@@ -230,13 +230,74 @@ app.get('/Keepers', function(req, res)
 //********************************************************************/
 //  FeedingEvents Page
 
+//  Create Operations
+//      Create a new feedingEvent
+app.post('/addFeedingEventForm', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+    console.log(data)
+    // Create the query and run it on the database
+    query1 = `INSERT INTO FeedingEvents (date, time, animalID, keeperID, foodID ) VALUES ('${data['date']}', '${data['time']}', '${data['animalID']}', '${data['keeperID']}', '${data['foodID']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+    
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/FeedingEvents');
+        }
+    })
+});
 //      Render the page with all of the FeedingEvents
 app.get('/FeedingEvents', function(req, res)
 {
+    // Query all tables involved in FeedingEvents table for options element in the Add Form
     retrieveFeedingEvents = 'SELECT * from FeedingEvents;';
-    db.pool.query(retrieveFeedingEvents, function(error, rows, fields){    // Execute the query
+    retrieveFoods= 'SELECT * from Foods;';
+    retrieveAnimals = 'SELECT * from Animals;';
+    retrieveKeepers = 'SELECT * from Keepers;';
+    
+    // An object to hold the data from each query
+    data = {
+        feedingEvents: "",
+        foods: "", 
+        animals: "",
+        keepers: ""
+    }
 
-        res.render('FeedingEvents', {data: rows});
+    db.pool.query(retrieveFeedingEvents, function(error, rows, fields){    // Execute the query
+        // Add feedingEvents rows to the data packet
+        data.feedingEvents = rows;
+        /*
+        //Convert each date object to date string
+        for(feedingEvent in data.feedingEvents){
+            feedingEvent.date = [feedingEvent.date, feedingEvent.date.toDateString()]
+        }*/
+        db.pool.query(retrieveFoods, function(error, rows, fields){    // Execute the query
+            // Add foods rows to the data packet
+            data.foods = rows;
+
+            db.pool.query(retrieveAnimals, function(error, rows, fields){    // Execute the query
+                // Add animals rows to the data packet
+                data.animals = rows;
+                
+                db.pool.query(retrieveKeepers, function(error, rows, fields){    // Execute the query
+                    // Add keepers rows to the data packet
+                    data.keepers = rows;
+                    res.render('FeedingEvents', {data});
+                });
+            });
+        });
+        
     });
 });
 
