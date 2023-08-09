@@ -90,20 +90,19 @@ app.get('/Animals', function(req, res)
 
 
 // Update Operations
-app.put('/updateAnimalForm-ajax', function(req,res,next){
+app.put('/update-animal', function(req,res,next){
     let data = req.body;
 
-    let animalID = parseInt(data.animalID);
-    let species = parseInt(data.species);
-    let animalName = parseInt(data.animalName);
-    let diet = parseInt(data.diet);
-    res.sendStatus(200);
-    /*
-    let queryUpdateAnimal = `UPDATE Animals SET species = ?, animalName = ?, diet = ? WHERE Animal.animalID = ?`;
+    let animalID = data.animalID;
+    let species = data.species;
+    let animalName = data.animalName;
+    let diet = data.diet;
+    
+    let queryUpdateAnimal = `UPDATE Animals SET species = ?, animalName = ?, diet = ? WHERE Animals.animalID = ?`;
     let selectAnimal = `SELECT * FROM Animals WHERE animalID = ?`
     
             // Run the 1st query
-            db.pool.query(queryUpdateAnimal, [species, animalName, diet], function(error, rows, fields){
+            db.pool.query(queryUpdateAnimal, [species, animalName, diet, animalID], function(error, rows, fields){
                 if (error) {
     
                 // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -126,7 +125,7 @@ app.put('/updateAnimalForm-ajax', function(req,res,next){
                         }
                     })
                 }
-    })*/
+    })
 });
 
 

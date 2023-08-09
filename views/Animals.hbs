@@ -33,7 +33,7 @@
     </tr>
     {{/each}}
 </table>
-<script src="/js/delete_animal.js"></script>
+
 
 <h2> Add an Animal </h2>
 <form id="addAnimalForm" action="/addAnimalForm" method="POST">
@@ -73,9 +73,8 @@
 </form>
 <script src="/js/updateAnimal.js"></script>
 
-{{!--
 <h2> Delete an Animal </h2>
-<form id="delete-animal-ajax">
+<form id="deleteAnimalForm">
     <label for="deleteAnimal"> Delete Animal </label> 
     <select id="deleteAnimal" name="deleteAnimal">
         <option value=""> Select an Animal </option>            
@@ -84,7 +83,6 @@
             <option value="{{this.animalID}}"> {{this.animalID}} {{this.animalName}}</option>
         {{/each}}
     </select>
-    <button onclick="deleteAnimal({{this.animalID}})">Delete</button>                  
+    <input type="submit" value="Delete">                 
 </form>
-<script src="/js/delete_animal.js"></script> 
---}}
+<script src="/js/delete_animal.js"></script>
