@@ -272,37 +272,21 @@ app.get('/Keepers', function(req, res)
 });
 
 // Delete Operations
-app.delete('/delete-keeper', function(req,res,next){
+app.delete('/delete-keeper', function(req, res, next){
     let data = req.body;
-    let keeperID = parseInt(data.keeperID);
-    let deleteFeedingEvent = `DELETE FROM FeedingEvents WHERE keeperID = ?`;
-    let deleteKeeper= `DELETE FROM Keepers WHERE keeperID = ?`;
+    let keeperID = parseInt(data.id);
+//    let deleteFeedingEvent = `DELETE FROM FeedingEvents WHERE keeperID = ?`;
+    let deleteKeeper = `DELETE FROM Keepers WHERE keeperID = ?`;
   
           // Run the 1st query
-          db.pool.query(deleteFeedingEvent, [keeperID], function(error, rows, fields){
-              if (error) {
-  
-                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-                console.log(error);
-                res.sendStatus(400);
-              }
-  
-              else
-              {
-                // Run the second query
-                  db.pool.query(deleteKeeper, [keeperID], function(error, rows, fields) {
-  
-                      if (error) {
-                          console.log(error);
-                          res.sendStatus(400);
-                      } else {
-                        console.log(fields)  
-                        res.sendStatus(204);
-                      }
-                  })
-                  res.sendStatus(204);
-              }
-  })});
+    db.pool.query(deleteKeeper, [keeperID], function(error, rows, fields){
+        if (error) {
+            res.sendStatus(400);
+        } 
+        else {
+            res.sendStatus(204);
+        }
+})});
 
 
 //********************************************************************/
