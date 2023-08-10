@@ -3,55 +3,32 @@
 {{> page/nav}}
 
 &nbsp;
-<form action="Keepers.html" method="get">
-    <label> Search for Keepers </label>
-    <input type="text">
-    <input type="submit" value="Search">
-</form>
-&nbsp;
-<table>
+<table id="keepers-table">
+    {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
     <tr>
-        <th> keeperID </th>
-        <th> keeperName </th>
+        {{#each data.[0]}}
+        <th>
+            {{@key}}
+        </th>
+        {{/each}}
     </tr>
-    <tr>
-        <td> 1 </td>
-        <td> Steve Irwin </td>
+    
+    {{!-- For each row, print the animalID, species, animalName, and diet --}}
+    {{#each data}}
+    <tr data-value={{this.keeperID}}>
+        <td>{{this.keeperID}}</td>
+        <td>{{this.keeperName}}</td>
+        <td><button onclick="deleteKeeper({{ this.keeperID }})">Delete</button></td>
     </tr>
-    <tr>
-        <td> 2 </td>
-        <td> Casey Anderson </td>
-    </tr>
-    <tr>
-        <td> 3 </td>
-        <td> Jimi Hendrix </td>
-    </tr>
-    <tr>
-        <td> 4 </td>
-        <td> Mike Tyson </td>
-    </tr>
+    {{/each}}
 </table>
-<h2> Add a Keeper </h2>
-<form action="Keepers.html" method="post">
-    <label for="keeperName"> keeperName </label>
-    <input id="keeperName" type="text">
+<script src="/js/delete_keeper.js"></script>
+
+<h2> Add Keeper </h2>
+<form id="addKeeperForm" action="/addKeeperForm" method="POST">
+    <label for="keeperName"> Species </label>
+    <input id="addKeeperName" name="keeperName" type="text" required>
+    
     <input type="submit" value="Enter">
-</form>
-<h2> Update a Keeper </h2>
-<form action="Keepers.html" method="put">
-    <label for="keeperName"> keeperName </label>
-    <input id="keeperName" type="text">
-    <input type="submit" value="Enter">
-</form>
-<h2> Delete a Keeper </h2>
-<form action="Keepers.html" method="delete">
-    <label for="deleteKeeper"> Remove Keeper </label> 
-        <select id="deleteKeeper" name="deleteKeeper">
-        <option value=""> Select a Keeper </option>            
-        <option value="1"> Steve Irwin </option>
-        <option value="2"> Casey Anderson </option>
-        <option value="3"> Jimi Hendrix </option>
-        <option value="4"> Mike Tyson </option>   
-</select>
-<input type="submit" value="Enter">                     
 </form>
