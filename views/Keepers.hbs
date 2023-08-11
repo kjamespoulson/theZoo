@@ -6,28 +6,33 @@
 <table id="keepers-table">
     {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
+    <thead>
     <tr>
         {{#each data.[0]}}
         <th>
             {{@key}}
         </th>
         {{/each}}
+        <th> delete </th>
     </tr>
-    
+    </thead>
+    <tbody>
     {{!-- For each row, print the animalID, species, animalName, and diet --}}
     {{#each data}}
     <tr data-value={{this.keeperID}}>
         <td>{{this.keeperID}}</td>
         <td>{{this.keeperName}}</td>
-        <td><button onclick="deleteKeeper({{ this.keeperID }})">Delete</button></td>
+        <td><button onclick="deleteKeeper({{this.keeperID}})">Delete</button></td>
     </tr>
     {{/each}}
+    </tbody>
 </table>
-<script src="/js/delete_keeper.js"></script>
+
+<script src="./js/delete_keeper.js"></script>
 
 <h2> Add Keeper </h2>
 <form id="addKeeperForm" action="/addKeeperForm" method="POST">
-    <label for="keeperName"> Species </label>
+    <label for="keeperName"> Keeper Name: </label>
     <input id="addKeeperName" name="keeperName" type="text" required>
     
     <input type="submit" value="Enter">
