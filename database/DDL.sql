@@ -75,7 +75,7 @@ CREATE TABLE FeedingEvents (
     feedingEventID int AUTO_INCREMENT NOT NULL,
     date date NOT NULL,
     time time NOT NULL,
-    foodID int NOT NULL,
+    foodID int,
     animalID int NOT NULL,
     keeperID int NOT NULL,
     PRIMARY KEY (feedingEventID),

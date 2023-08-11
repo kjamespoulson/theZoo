@@ -298,7 +298,7 @@ app.post('/addFeedingEventForm', function(req, res)
 {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-    console.log(data)
+    
     // Create the query and run it on the database
     query1 = `INSERT INTO FeedingEvents (date, time, animalID, keeperID, foodID ) VALUES ('${data['date']}', '${data['time']}', '${data['animalID']}', '${data['keeperID']}', '${data['foodID']}')`;
     db.pool.query(query1, function(error, rows, fields){
@@ -319,6 +319,7 @@ app.post('/addFeedingEventForm', function(req, res)
         }
     })
 });
+
 //      Render the page with all of the FeedingEvents
 app.get('/FeedingEvents', function(req, res)
 {
