@@ -298,7 +298,7 @@ app.post('/addFeedingEventForm', function(req, res)
 {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-    
+
     // Create the query and run it on the database
     query1 = `INSERT INTO FeedingEvents (date, time, animalID, keeperID, foodID ) VALUES ('${data['date']}', '${data['time']}', '${data['animalID']}', '${data['keeperID']}', '${data['foodID']}')`;
     db.pool.query(query1, function(error, rows, fields){
@@ -362,6 +362,20 @@ app.get('/FeedingEvents', function(req, res)
         });
         
     });
+});
+
+app.delete('/delete-feedingEvent', function(req, res, next) {
+    let data = req.body;
+    let feedingEventID = parseInt(data.id);
+    let deleteFeedingEvent = `DELETE FROM FeedingEvents WHERE feedingEventID = ?`;
+
+        db.pool.query(deleteFeedingEvent, [feedingEventID], function(error, rows, fields) {
+            if (error) {
+                res.sendStatus(400);
+            } else {
+                res.sendStatus(204);
+            }
+        })
 });
 
     /*
