@@ -30,7 +30,6 @@ updateFeedingEventForm.addEventListener("submit", function (e) {
     };
     if (keeperID == ''){
         keeperID = getPreviousValue(5, feedingEventID)
-        console.log(keeperID)
     };
 
     // Put our data we want to send in a javascript object
