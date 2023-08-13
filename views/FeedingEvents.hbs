@@ -32,7 +32,7 @@
 
 <h2> Add a FeedingEvent </h2>
     <form id="addFeedingEventForm" action="/addFeedingEventForm" method="post">
-        <label for="animalID"> Animal </label>
+        <label for="animalID"> Animal: </label>
         <select name="animalID">
             <option value=""> Select an Animal </option>            
             {{!-- Add each animalID in the dropdown menu --}}
@@ -41,7 +41,7 @@
             {{/each}}
         </select>
 
-        <label for="keeperID"> Keeper </label>
+        <label for="keeperID"> Keeper: </label>
         <select name="keeperID">
             <option value=""> Select a Keeper </option>            
             {{!-- Add each keeperID in the dropdown menu --}}
@@ -50,7 +50,7 @@
             {{/each}}
         </select>
 
-        <label for="foodID"> Food </label>
+        <label for="foodID"> Food: </label>
         <select name="foodID">
             <option value=""> Select a Food </option>            
             {{!-- Add each foodID in the dropdown menu --}}
@@ -59,9 +59,55 @@
             {{/each}}
         </select>
 
-        <label for="date"> Date </label>
+        <label for="date"> Date: </label>
         <input id="date" type="date" name="date">
-        <label for="time"> Time </label>
+        <label for="time"> Time: </label>
         <input id="time" type="time" name="time">
         <input type="submit" value="Enter">
     </form>
+
+<h2> Update a FeedingEvent </h2>
+<form id="updateFeedingEventForm">
+
+    <label for="updateFeedingEvent"> Event: </label>
+    <select name="updateFeedingEvent" id="updateFeedingEventID">
+        <option value=""> Select an Event </option>
+        {{#each data.feedingEvents}}
+        <option value="{{this.feedingEventID}}">{{this.feedingEventID}}</option>
+        {{/each}}
+    </select>
+    <label for="animalID"> Animal: </label>
+    <select name="animalID" id="updateAnimalID">
+        <option value=""> Select an Animal </option>            
+        {{!-- Add each animalID in the dropdown menu --}}
+        {{#each data.animals}}
+            <option value="{{this.animalID}}"> {{this.animalID}} - {{this.animalName}} </option>
+        {{/each}}
+    </select>
+
+    <label for="keeperID"> Keeper: </label>
+    <select name="keeperID" id="updateKeeperID">
+        <option value=""> Select a Keeper </option>            
+        {{!-- Add each keeperID in the dropdown menu --}}
+        {{#each data.keepers}}
+            <option value="{{this.keeperID}}"> {{this.keeperID}} - {{this.keeperName}} </option>
+        {{/each}}
+    </select>
+
+    <label for="foodID"> Food: </label>
+    <select name="foodID" id="updateFoodID">
+        <option value=""> Select a Food </option>            
+        {{!-- Add each foodID in the dropdown menu --}}
+        {{#each data.foods}}
+            <option value="{{this.foodID}}"> {{this.foodID}} - {{this.foodName}} </option>
+        {{/each}}
+    </select>
+
+    <label for="date"> Date: </label>
+    <input id="updateDate" type="date" name="date">
+    <label for="time"> Time: </label>
+    <input id="updateTime" type="time" name="time">
+    <input type="submit" value="Enter">
+</form>
+
+<script src="./js/update_feedingEvent.js"></script>

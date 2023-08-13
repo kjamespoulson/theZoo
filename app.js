@@ -378,6 +378,36 @@ app.delete('/delete-feedingEvent', function(req, res, next) {
         })
 });
 
+app.put('/update-feedingEvent', function(req,res,next){
+    let data = req.body;
+    
+    let feedingEventID = data.feedingEventID;
+    let animalID = data.animalID;
+    let keeperID = data.keeperID;
+    let foodID = data.foodID;
+    let date = data.date;
+    let time = data.time;
+
+    let updateFeedingEventQuery = `UPDATE FeedingEvents SET date = ?, time = ?, foodID = ?, animalID = ?, keeperID = ? WHERE feedingEventID = ?`;
+    let selectFeedingEvents = `SELECT * FROM FeedingEvents WHERE feedingEventID = ?`;
+
+    db.pool.query(updateFeedingEventQuery, [date, time, foodID, animalID, keeperID, feedingEventID], function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            db.pool.query(selectFeedingEvents, [feedingEventID], function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
     /*
     LISTENER
 */
