@@ -75,7 +75,7 @@ CREATE TABLE FeedingEvents (
     feedingEventID int AUTO_INCREMENT NOT NULL,
     date date NOT NULL,
     time time NOT NULL,
-    foodID int NOT NULL,
+    foodID int,
     animalID int NOT NULL,
     keeperID int NOT NULL,
     PRIMARY KEY (feedingEventID),
@@ -86,59 +86,12 @@ CREATE TABLE FeedingEvents (
 
 -- Sample FeedingEvents 
 
-INSERT INTO FeedingEvents (date, time)
-VALUES ('20230717', '6:0:0'),
-('20230717', '6:0:34'),
-('20230717', '6:30:58'),
-('20230717', '12:59:14'),
-('20230717', '16:4:49'),
-('20230717', '20:5:26');
+INSERT INTO FeedingEvents (foodID, animalID, keeperID, date, time)
+VALUES (1, 1, 1, '20230717', '6:0:0'),
+(2, 2, 2, '20230717', '6:0:34'),
+(3, 3, 3, '20230717', '6:30:58'),
+(4, 4, 4,'20230717', '12:59:14'),
+(1, 2, 3, '20230717', '16:4:49'),
+(3, 2, 1, '20230717', '20:5:26');
 
-------------------
--- Foods_Animals --
-------------------
-
--- Create Foods_Animals intersection table
-CREATE TABLE Foods_Animals(
-    CONSTRAINT FK_Foods_Animals_foodID FOREIGN KEY (foodID)
-    REFERENCES Foods(foodID),
-    CONSTRAINT FK_Foods_Animals_animalID FOREIGN KEY (animalID) 
-    REFERENCES Animals(animalID)
-);
-
--- Sample Foods_Animals
-INSERT INTO Foods_Animals
-(
-    foodID,
-    animalID
-)
-VALUES
-(
-    1,
-    1
-),
-(
-    1,
-    3
-),
-(
-    2,
-    4
-),
-(
-    2,
-    5
-),
-(
-    3,
-    3
-),
-(
-   4,
-   1
-),
-(
-   4,
-   3
-);
 

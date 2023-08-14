@@ -298,7 +298,12 @@ app.post('/addFeedingEventForm', function(req, res)
 {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-    console.log(data)
+
+    foodID = data['foodID']
+    if (foodID === undefined) {
+        foodID = 'NULL'
+    }
+
     // Create the query and run it on the database
     query1 = `INSERT INTO FeedingEvents (date, time, animalID, keeperID, foodID ) VALUES ('${data['date']}', '${data['time']}', '${data['animalID']}', '${data['keeperID']}', '${data['foodID']}')`;
     db.pool.query(query1, function(error, rows, fields){
@@ -319,6 +324,7 @@ app.post('/addFeedingEventForm', function(req, res)
         }
     })
 });
+
 //      Render the page with all of the FeedingEvents
 app.get('/FeedingEvents', function(req, res)
 {
@@ -327,13 +333,14 @@ app.get('/FeedingEvents', function(req, res)
     retrieveFoods= 'SELECT * from Foods;';
     retrieveAnimals = 'SELECT * from Animals;';
     retrieveKeepers = 'SELECT * from Keepers;';
+
     
     // An object to hold the data from each query
     data = {
         feedingEvents: "",
         foods: "", 
         animals: "",
-        keepers: ""
+        keepers: "",
     }
 
     db.pool.query(retrieveFeedingEvents, function(error, rows, fields){    // Execute the query
@@ -363,7 +370,52 @@ app.get('/FeedingEvents', function(req, res)
     });
 });
 
-    /*
+app.delete('/delete-feedingEvent', function(req, res, next) {
+    let data = req.body;
+    let feedingEventID = parseInt(data.id);
+    let deleteFeedingEvent = `DELETE FROM FeedingEvents WHERE feedingEventID = ?`;
+
+        db.pool.query(deleteFeedingEvent, [feedingEventID], function(error, rows, fields) {
+            if (error) {
+                res.sendStatus(400);
+            } else {
+                res.sendStatus(204);
+            }
+        })
+});
+
+app.put('/update-feedingEvent', function(req,res,next){
+
+    let data = req.body;
+    
+    let feedingEventID = data.feedingEventID;
+    let animalID = data.animalID;
+    let keeperID = data.keeperID;
+    let foodID = data.foodID;
+    let date = data.date;
+    let time = data.time;
+
+    let updateFeedingEventQuery = `UPDATE FeedingEvents SET date = ?, time = ?, foodID = ?, animalID = ?, keeperID = ? WHERE feedingEventID = ?`;
+    let selectFeedingEvents = `SELECT * FROM FeedingEvents WHERE feedingEventID = ?`;
+
+    db.pool.query(updateFeedingEventQuery, [date, time, foodID, animalID, keeperID, feedingEventID], function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            db.pool.query(selectFeedingEvents, [feedingEventID], function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+/*
     LISTENER
 */
 app.listen(PORT, function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
