@@ -16,9 +16,6 @@ updateFeedingEventForm.addEventListener("submit", function (e) {
     let date = document.getElementById("updateDate").value;
     let time = document.getElementById("updateTime").value;
 
-    if (date == '') {
-        date = getPreviousValue(1, feedingEventID)
-    };
     if (time == '') {
         time = getPreviousValue(2, feedingEventID)
     };
@@ -65,7 +62,6 @@ updateFeedingEventForm.addEventListener("submit", function (e) {
     xhttp.send(JSON.stringify(data));
 
 })
-
 
 function updateRow(data, feedingEventID){
     let parsedData = JSON.parse(data);

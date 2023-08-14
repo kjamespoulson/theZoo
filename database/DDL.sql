@@ -86,7 +86,7 @@ CREATE TABLE FeedingEvents (
 
 -- Sample FeedingEvents 
 
-INSERT INTO FeedingEvents (date, time)
+INSERT INTO FeedingEvents (foodID, animalID, keeperID, date, time)
 VALUES ('20230717', '6:0:0'),
 ('20230717', '6:0:34'),
 ('20230717', '6:30:58'),
@@ -94,51 +94,4 @@ VALUES ('20230717', '6:0:0'),
 ('20230717', '16:4:49'),
 ('20230717', '20:5:26');
 
-------------------
--- Foods_Animals --
-------------------
-
--- Create Foods_Animals intersection table
-CREATE TABLE Foods_Animals(
-    CONSTRAINT FK_Foods_Animals_foodID FOREIGN KEY (foodID)
-    REFERENCES Foods(foodID),
-    CONSTRAINT FK_Foods_Animals_animalID FOREIGN KEY (animalID) 
-    REFERENCES Animals(animalID)
-);
-
--- Sample Foods_Animals
-INSERT INTO Foods_Animals
-(
-    foodID,
-    animalID
-)
-VALUES
-(
-    1,
-    1
-),
-(
-    1,
-    3
-),
-(
-    2,
-    4
-),
-(
-    2,
-    5
-),
-(
-    3,
-    3
-),
-(
-   4,
-   1
-),
-(
-   4,
-   3
-);
 

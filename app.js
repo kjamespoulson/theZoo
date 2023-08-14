@@ -299,6 +299,11 @@ app.post('/addFeedingEventForm', function(req, res)
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
+    foodID = data['foodID']
+    if (foodID === undefined) {
+        foodID = 'NULL'
+    }
+
     // Create the query and run it on the database
     query1 = `INSERT INTO FeedingEvents (date, time, animalID, keeperID, foodID ) VALUES ('${data['date']}', '${data['time']}', '${data['animalID']}', '${data['keeperID']}', '${data['foodID']}')`;
     db.pool.query(query1, function(error, rows, fields){
@@ -328,13 +333,14 @@ app.get('/FeedingEvents', function(req, res)
     retrieveFoods= 'SELECT * from Foods;';
     retrieveAnimals = 'SELECT * from Animals;';
     retrieveKeepers = 'SELECT * from Keepers;';
+
     
     // An object to hold the data from each query
     data = {
         feedingEvents: "",
         foods: "", 
         animals: "",
-        keepers: ""
+        keepers: "",
     }
 
     db.pool.query(retrieveFeedingEvents, function(error, rows, fields){    // Execute the query
@@ -379,6 +385,7 @@ app.delete('/delete-feedingEvent', function(req, res, next) {
 });
 
 app.put('/update-feedingEvent', function(req,res,next){
+
     let data = req.body;
     
     let feedingEventID = data.feedingEventID;
@@ -408,7 +415,7 @@ app.put('/update-feedingEvent', function(req,res,next){
     })
 });
 
-    /*
+/*
     LISTENER
 */
 app.listen(PORT, function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
